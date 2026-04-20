@@ -3,237 +3,138 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NexusShop UI Redesign</title>
+<title>NexusShop</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
-:root {
-  --primary:#111827;
-  --accent:#6366f1;
-  --bg:#f9fafb;
-  --card:#ffffff;
-  --text:#1f2937;
-  --muted:#6b7280;
-}
+body{margin:0;font-family:Inter;background:#f5f7fb}
+header{display:flex;justify-content:space-between;padding:15px 30px;background:white;box-shadow:0 4px 10px rgba(0,0,0,.05)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;padding:30px}
+.product{background:white;padding:15px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.05)}
+.product img{width:100%;height:150px;object-fit:cover;border-radius:10px}
+button{cursor:pointer}
+.add{margin-top:10px;background:#6366f1;color:white;border:none;padding:10px;border-radius:8px;width:100%}
+.cart-btn{position:relative}
+.cart-count{position:absolute;top:-8px;right:-10px;background:red;color:white;border-radius:50%;padding:3px 7px;font-size:12px}
 
-body{
-  margin:0;
-  font-family:Inter, sans-serif;
-  background:var(--bg);
-  color:var(--text);
-}
+/* Cart Drawer */
+#cartDrawer{position:fixed;right:-350px;top:0;width:320px;height:100%;background:white;box-shadow:-5px 0 20px rgba(0,0,0,.1);padding:20px;transition:.3s}
+#cartDrawer.open{right:0}
+.cart-item{display:flex;justify-content:space-between;margin-bottom:10px}
+.checkout{margin-top:20px;background:#10b981;color:white;border:none;padding:12px;width:100%;border-radius:8px}
 
-header{
-  background:white;
-  padding:14px 40px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  box-shadow:0 4px 20px rgba(0,0,0,0.05);
-}
-
-.brand{
-  font-family:Poppins;
-  font-size:22px;
-  font-weight:700;
-}
-.brand span{color:var(--accent)}
-
-nav a{
-  margin:0 12px;
-  font-weight:500;
-  color:var(--text);
-}
-
-.hero{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:60px 40px;
-  background:linear-gradient(120deg,#6366f1,#8b5cf6);
-  color:white;
-}
-
-.hero h1{font-size:42px;margin-bottom:10px}
-.hero p{opacity:.9;max-width:500px}
-
-.hero img{
-  width:400px;
-  border-radius:20px;
-}
-
-.btn{
-  background:white;
-  color:var(--accent);
-  padding:12px 20px;
-  border:none;
-  border-radius:8px;
-  margin-top:16px;
-  cursor:pointer;
-  font-weight:600;
-}
-
-.section{padding:50px 40px}
-
-.grid{
-  display:grid;
-  gap:20px;
-}
-
-.categories{
-  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-}
-
-.cat{
-  background:white;
-  padding:20px;
-  border-radius:14px;
-  text-align:center;
-  box-shadow:0 6px 18px rgba(0,0,0,0.05);
-  transition:.2s;
-}
-
-.cat:hover{transform:translateY(-6px)}
-
-.products{
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-}
-
-.product{
-  background:white;
-  border-radius:16px;
-  overflow:hidden;
-  box-shadow:0 10px 25px rgba(0,0,0,0.06);
-  transition:.2s;
-}
-
-.product:hover{transform:translateY(-8px)}
-
-.product img{
-  width:100%;
-  height:180px;
-  object-fit:cover;
-}
-
-.product-body{padding:16px}
-
-.price{
-  font-weight:700;
-  margin-top:6px;
-}
-
-.add{
-  margin-top:10px;
-  width:100%;
-  padding:10px;
-  background:var(--accent);
-  color:white;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
-}
-
-.deal{
-  background:white;
-  display:flex;
-  gap:20px;
-  padding:20px;
-  border-radius:16px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.06);
-}
-
-.deal img{
-  width:300px;
-  border-radius:12px;
-}
-
-footer{
-  text-align:center;
-  padding:30px;
-  color:var(--muted);
-}
-
-@media(max-width:768px){
-  .hero{flex-direction:column;text-align:center}
-  .hero img{width:100%;margin-top:20px}
-  .deal{flex-direction:column}
-}
-
+/* Modal */
+#checkoutModal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center}
+#checkoutBox{background:white;padding:20px;border-radius:10px;width:300px}
+#checkoutBox input{width:100%;padding:8px;margin:8px 0}
 </style>
 </head>
 
 <body>
 
 <header>
-  <div class="brand">Nexus<span>Shop</span></div>
-  <nav>
-    <a href="#">Home</a>
-    <a href="#">Shop</a>
-    <a href="#">Deals</a>
-    <a href="#">Contact</a>
-  </nav>
+<h2>NexusShop</h2>
+<button class="cart-btn" onclick="toggleCart()">Cart <span class="cart-count" id="count">0</span></button>
 </header>
 
-<section class="hero">
-  <div>
-    <h1>Upgrade Your Style</h1>
-    <p>Discover premium collections with modern design and exclusive offers.</p>
-    <button class="btn">Shop Now</button>
-  </div>
-  <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30">
-</section>
+<div class="grid" id="products"></div>
 
-<section class="section">
-  <h2>Categories</h2>
-  <div class="grid categories">
-    <div class="cat"><i class="fas fa-mobile"></i><p>Phones</p></div>
-    <div class="cat"><i class="fas fa-laptop"></i><p>Laptops</p></div>
-    <div class="cat"><i class="fas fa-tshirt"></i><p>Fashion</p></div>
-    <div class="cat"><i class="fas fa-headphones"></i><p>Gadgets</p></div>
-  </div>
-</section>
+<!-- Cart Drawer -->
+<div id="cartDrawer">
+<h3>Your Cart</h3>
+<div id="cartItems"></div>
+<h4>Total: $<span id="total">0</span></h4>
+<button class="checkout" onclick="openCheckout()">Checkout</button>
+</div>
 
-<section class="section">
-  <h2>Trending Products</h2>
-  <div class="grid products">
-    <div class="product">
-      <img src="https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb">
-      <div class="product-body">
-        <h4>iPhone 14 Pro</h4>
-        <div class="price">$999</div>
-        <button class="add">Add to Cart</button>
-      </div>
-    </div>
+<!-- Checkout Modal -->
+<div id="checkoutModal">
+<div id="checkoutBox">
+<h3>Checkout</h3>
+<input id="name" placeholder="Full Name">
+<input id="address" placeholder="Address">
+<input placeholder="Card Number">
+<button class="checkout" onclick="placeOrder()">Place Order</button>
+</div>
+</div>
 
-    <div class="product">
-      <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45">
-      <div class="product-body">
-        <h4>MacBook Pro</h4>
-        <div class="price">$1999</div>
-        <button class="add">Add to Cart</button>
-      </div>
-    </div>
-  </div>
-</section>
+<script>
+const PRODUCTS=[
+{id:1,name:"iPhone 14",price:999,img:"https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb"},
+{id:2,name:"MacBook Pro",price:1999,img:"https://images.unsplash.com/photo-1593642632823-8f785ba67e45"},
+{id:3,name:"Headphones",price:199,img:"https://images.unsplash.com/photo-1518444028785-8b0c6b8f3d61"}
+];
 
-<section class="section">
-  <h2>Hot Deal</h2>
-  <div class="deal">
-    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8">
-    <div>
-      <h3>MacBook Air M2</h3>
-      <p>Lightweight. Powerful. Beautiful.</p>
-      <div class="price">$999</div>
-      <button class="add">Buy Now</button>
-    </div>
-  </div>
-</section>
+let cart=[];
 
-<footer>
-  © 2026 NexusShop. Designed with modern UI.
-</footer>
+function renderProducts(){
+const container=document.getElementById("products");
+container.innerHTML="";
+PRODUCTS.forEach(p=>{
+const div=document.createElement("div");
+div.className="product";
+div.innerHTML=`
+<img src="${p.img}">
+<h4>${p.name}</h4>
+<p>$${p.price}</p>
+<button class="add" onclick="addToCart(${p.id})">Add to Cart</button>
+`;
+container.appendChild(div);
+});
+}
+
+function addToCart(id){
+const item=cart.find(i=>i.id===id);
+if(item){item.qty++}
+else{
+const p=PRODUCTS.find(x=>x.id===id);
+cart.push({...p,qty:1});
+}
+updateCart();
+}
+
+function updateCart(){
+document.getElementById("count").innerText=cart.reduce((a,b)=>a+b.qty,0);
+
+const items=document.getElementById("cartItems");
+items.innerHTML="";
+let total=0;
+
+cart.forEach(i=>{
+total+=i.price*i.qty;
+items.innerHTML+=`<div class='cart-item'>${i.name} x${i.qty} <button onclick='removeItem(${i.id})'>X</button></div>`;
+});
+
+document.getElementById("total").innerText=total;
+}
+
+function removeItem(id){
+cart=cart.filter(i=>i.id!==id);
+updateCart();
+}
+
+function toggleCart(){
+document.getElementById("cartDrawer").classList.toggle("open");
+}
+
+function openCheckout(){
+if(cart.length===0){alert("Cart empty");return}
+document.getElementById("checkoutModal").style.display="flex";
+}
+
+function placeOrder(){
+const name=document.getElementById("name").value;
+const address=document.getElementById("address").value;
+if(!name||!address){alert("Fill all fields");return}
+alert("Order placed successfully!");
+cart=[];
+updateCart();
+document.getElementById("checkoutModal").style.display="none";
+}
+
+renderProducts();
+</script>
 
 </body>
 </html>
