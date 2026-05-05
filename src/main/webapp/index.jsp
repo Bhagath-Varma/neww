@@ -201,8 +201,8 @@ footer{
     <div class="product">
       <img src="https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb">
       <div class="product-body">
-        <h4>iPhone 14 Pro</h4>
-        <div class="price">$999</div>
+        <h4>iPhone 14 Pro Bhagath</h4>
+        <div class="price">$100000</div>
         <button class="add">Add to Cart</button>
       </div>
     </div>
@@ -223,7 +223,7 @@ footer{
   <div class="deal">
     <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8">
     <div>
-      <h3>MacBook Air(Bhagath) M2</h3>
+      <h3>MacBook Air Bhagath M2</h3>
       <p>Lightweight. Powerful. Beautiful.</p>
       <div class="price">$999</div>
       <button class="add">Buy Now</button>
