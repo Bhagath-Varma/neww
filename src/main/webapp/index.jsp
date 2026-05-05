@@ -223,7 +223,7 @@ footer{
   <div class="deal">
     <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8">
     <div>
-      <h3>MacBook Air M2</h3>
+      <h3>MacBook Air(Bhagath) M2</h3>
       <p>Lightweight. Powerful. Beautiful.</p>
       <div class="price">$999</div>
       <button class="add">Buy Now</button>
